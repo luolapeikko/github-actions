@@ -11,10 +11,10 @@ runs:
       run: |
         echo "PACKAGE_NAME=$(jq -r .name package.json)" | tee -a "$GITHUB_ENV"
         echo "PACKAGE_VERSION=$(jq -r .version package.json)" | tee -a "$GITHUB_ENV"
-        echo "HAVE_COVERAGE_SCRIPT=$(jq 'has(\"scripts\") and .scripts.coverage != null' package.json)" | tee -a "$GITHUB_ENV"
-        echo "HAVE_VALIDATE_SCRIPT=$(jq 'has(\"scripts\") and .scripts.validate != null' package.json)" | tee -a "$GITHUB_ENV"
-        echo "HAVE_LINT_SCRIPT=$(jq 'has(\"scripts\") and .scripts.lint != null' package.json)" | tee -a "$GITHUB_ENV"
-        echo "HAVE_UNIT_TEST_SCRIPT=$(jq 'has(\"scripts\") and .scripts.test != null' package.json)" | tee -a "$GITHUB_ENV"
+        echo "HAVE_COVERAGE_SCRIPT=$(jq 'has("scripts") and .scripts.coverage != null' package.json)" | tee -a "$GITHUB_ENV"
+        echo "HAVE_VALIDATE_SCRIPT=$(jq 'has("scripts") and .scripts.validate != null' package.json)" | tee -a "$GITHUB_ENV"
+        echo "HAVE_LINT_SCRIPT=$(jq 'has("scripts") and .scripts.lint != null' package.json)" | tee -a "$GITHUB_ENV"
+        echo "HAVE_UNIT_TEST_SCRIPT=$(jq 'has("scripts") and .scripts.test != null' package.json)" | tee -a "$GITHUB_ENV"
 
     - name: Get npm version
       shell: bash
