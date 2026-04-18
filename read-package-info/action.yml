@@ -20,3 +20,14 @@ runs:
       shell: bash
       run: |
         echo "NPM_VERSION=$(curl -s https://registry.npmjs.org/${PACKAGE_NAME} | jq -r '."dist-tags".latest')" | tee -a "$GITHUB_ENV"
+
+    - name: Check Package Manager
+      shell: bash
+      run: |
+        if [ -f "pnpm-lock.yaml" ]; then
+          echo "PACKAGE_MANAGER=pnpm" | tee -a "$GITHUB_ENV"
+        elif [ -f "yarn.lock" ]; then
+          echo "PACKAGE_MANAGER=yarn" | tee -a "$GITHUB_ENV"
+        elif [ -f "bun.lockb" ] || [ -f "bun.lock" ]; then
+          echo "PACKAGE_MANAGER=bun" | tee -a "$GITHUB_ENV"
+        fi
