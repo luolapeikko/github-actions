@@ -1,6 +1,12 @@
 name: "Read package info"
 description: "Extract package.json info, current NPM version and expose as env vars"
 
+inputs:
+  working-directory:
+    description: "Directory containing package.json"
+    required: false
+    default: "."
+
 runs:
   using: "composite"
   steps:
@@ -8,7 +14,9 @@ runs:
 
     - name: Read package.json
       shell: bash
+      working-directory: ${{ inputs.working-directory }}
       run: |
+        set -euo pipefail
         jq -r '"PACKAGE_NAME=\(.name)"' package.json | tee -a "$GITHUB_ENV"
         jq -r '"PACKAGE_VERSION=\(.version)"' package.json | tee -a "$GITHUB_ENV"
         jq -r '"PACKAGE_DESCRIPTION=\(.description // "")"' package.json | tee -a "$GITHUB_ENV"
@@ -24,11 +32,14 @@ runs:
     - name: Get npm version
       shell: bash
       run: |
+        set -euo pipefail
         curl -fsS "https://registry.npmjs.org/${PACKAGE_NAME}" | jq -r '"NPM_VERSION=\(."dist-tags".latest // "")"' | tee -a "$GITHUB_ENV"
 
     - name: Check Package Manager
       shell: bash
+      working-directory: ${{ inputs.working-directory }}
       run: |
+        set -euo pipefail
         if [ -f "pnpm-lock.yaml" ]; then
           echo "PACKAGE_MANAGER=pnpm" | tee -a "$GITHUB_ENV"
         elif [ -f "yarn.lock" ]; then
