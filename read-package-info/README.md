@@ -1,19 +1,18 @@
 # read-package-info
 
-- Common package.json parsing as env's
-- Current package's NPM version as env.
-- Package managager based on lock files.
-
-
+- Common package.json value parsing as env's
+- package.json scripts as `HAVE_{KEY}_SCRIPT` (all uppercase)
+- Current package's NPM version from NPM registry as env.
+- Package manager based on lock files.
 
 ## Generated envs
+
 ```
 env.PACKAGE_NAME (from package.json .name)
 env.PACKAGE_VERSION (from package.json .version)
-env.HAVE_COVERAGE_SCRIPT "true" (from package.json if have .scripts.coverage)
-env.HAVE_VALIDATE_SCRIPT "true" (from package.json if have .scripts.validate)
-env.HAVE_LINT_SCRIPT "true" (from package.json if have .scripts.lint)
-env.HAVE_UNIT_TEST_SCRIPT "true" (from package.json if have .scripts.test)
+env.PACKAGE_DESCRIPTION (from package.json .description)
+
+env.HAVE_{KEY}_SCRIPT "true" (from package.json .scripts keys[])
 
 env.NPM_VERSION (from NPM registry)
 
@@ -21,13 +20,14 @@ env.PACKAGE_MANAGER (from based on lock files)
 ```
 
 ## Example usage
+
 ```yaml
 # env defaults
 env:
-  PACKAGE_NAME: 'unknown'
-  PACKAGE_VERSION: 'unknown'
-  PACKAGE_MANAGER: 'npm'
-  NPM_VERSION: 'unknown'
+  PACKAGE_NAME: "unknown"
+  PACKAGE_VERSION: "unknown"
+  PACKAGE_MANAGER: "npm"
+  NPM_VERSION: "unknown"
   HAVE_COVERAGE_SCRIPT: false
   HAVE_VALIDATE_SCRIPT: false
   HAVE_LINT_SCRIPT: false
@@ -46,8 +46,8 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: 'lts/*'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "lts/*"
+          registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
         run: ${{ env.PACKAGE_MANAGER }} install
