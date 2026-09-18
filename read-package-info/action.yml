@@ -10,7 +10,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: dcarbone/install-jq-action@v2
+    - uses: dcarbone/install-jq-action@v4
 
     - name: Read package.json
       shell: bash
