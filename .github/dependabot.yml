@@ -1,0 +1,7 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directories:
+      - "/read-package-info"
+    schedule:
+      interval: "weekly"
