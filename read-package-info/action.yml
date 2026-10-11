@@ -32,6 +32,7 @@ runs:
 
     - name: Get npm version
       shell: bash
+      if: env.PACKAGE_PRIVATE == 'false'
       run: |
         set -euo pipefail
         curl -fsS "https://registry.npmjs.org/${PACKAGE_NAME}" | jq -r '"NPM_VERSION=\(."dist-tags".latest // "")"' | tee -a "$GITHUB_ENV"
