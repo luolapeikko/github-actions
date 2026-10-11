@@ -20,6 +20,7 @@ runs:
         jq -r '"PACKAGE_NAME=\(.name)"' package.json | tee -a "$GITHUB_ENV"
         jq -r '"PACKAGE_VERSION=\(.version)"' package.json | tee -a "$GITHUB_ENV"
         jq -r '"PACKAGE_DESCRIPTION=\(.description // "")"' package.json | tee -a "$GITHUB_ENV"
+        jq -r '"PACKAGE_PRIVATE=\(.private // false)"' package.json | tee -a "$GITHUB_ENV"
         jq -r '
           (.scripts // {}) 
           | keys[] 

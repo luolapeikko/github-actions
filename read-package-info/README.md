@@ -27,6 +27,7 @@ env:
   PACKAGE_NAME: "unknown"
   PACKAGE_VERSION: "unknown"
   PACKAGE_MANAGER: "npm"
+  PACKAGE_PRIVATE: false
   NPM_VERSION: "unknown"
   HAVE_COVERAGE_SCRIPT: false
   HAVE_VALIDATE_SCRIPT: false
